@@ -23,14 +23,17 @@ export default {
     sampleBlogCards() {
       return this.$store.state.sampleBlogCards;
     },
-    // editPost: {
-    //     get() {
-    //         return this.$store.state.editPost;
-    //     },
-    //     set(payLoad) {
-    //         this.store.commit("toggleEditPost", payLoad)
-    //     }
-    // }
+    editPost: {
+      get() {
+        return this.$store.state.editPost;
+      },
+      set(payLoad) {
+        this.$store.commit("toggleEditPost", payLoad);
+      },
+    },
+  },
+  beforeDestory() {
+     this.$store.commit("toggleEditPost", false);
   },
 };
 </script>
