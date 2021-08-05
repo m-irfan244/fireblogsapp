@@ -23,8 +23,8 @@
                   <ul>
                       <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
                       <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-                      <router-link class="link" :to="{ name: 'newpost' }">Create Post</router-link>
-                      <router-link class="link" :to="{ name: 'login' }">Log In / Register</router-link>
+                      <router-link class="link" to="#">Create Post</router-link>
+                      <router-link v-if="!user" class="link" :to="{ name: 'Login' }">Log In / Register</router-link>
                   </ul>
               </div>
           </div>
@@ -47,6 +47,11 @@ export default {
         twitter,
         instagram,
         linkedin,
+    },
+    computed: {
+        user(){
+          return this.$store.state.user;
+      }
     }
 }
 </script>

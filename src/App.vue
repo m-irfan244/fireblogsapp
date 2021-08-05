@@ -10,7 +10,9 @@
 
 <script>
 import Navigation from './components/navigation.vue';
-import Footer from './components/Footer.vue'
+import Footer from './components/Footer.vue';
+import firebase from "firebase/app";
+import "firebase/auth";
 export default {
   name: "app",
   components: { Navigation, Footer },
@@ -20,7 +22,15 @@ export default {
     };
   },
   created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.$store.commit("updateUser", user);
+      if(user) {
+        this.$store.dispatch("getCurrentUser")
+        console.log(this.$store.state.profileEmail)
+      }
+    })
     this.checkRoute();
+    
   },
   mounted() {},
   methods: {
@@ -28,7 +38,7 @@ export default {
       if(
         this.$route.name === "Login" ||
         this.$route.name === "Register" ||
-        this.$$route.name === "ForgotPassword"
+        this.$route.name === "ForgotPassword"
         ) {
           this.navigation = true;
           return;
@@ -139,6 +149,12 @@ button,
   pointer-events: none !important;
   cursor: none !important;
   background-color:rgba(128, 128, 128, 0.5);
+}
+
+.error {
+  text-align: center;
+  font-size: 12px;
+  color: red;
 }
 
 .blog-card-wrap {
